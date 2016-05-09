@@ -1,0 +1,12 @@
+/*C1*/SET SCHEMA SYSTEM_LOBS
+INSERT INTO BLOCKS VALUES(0,2147483647,0)
+COMMIT
+/*C2*/SET SCHEMA PUBLIC
+CREATE TABLE Employee (FavoritesID CHAR(10) NOT NULL PRIMARY KEY, URL CHAR(100) )
+INSERT INTO EMPLOYEE VALUES('URL-001   ','oracle.com                                                                                          ')
+COMMIT
+INSERT INTO EMPLOYEE VALUES('URL-002   ','amazon.com                                                                                          ')
+COMMIT
+INSERT INTO EMPLOYEE VALUES('URL-003   ','carrollcc.edu                                                                                       ')
+COMMIT
+DISCONNECT

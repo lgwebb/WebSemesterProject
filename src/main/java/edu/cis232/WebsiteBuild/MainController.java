@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -28,9 +29,22 @@ public class MainController {
     private MenuItem shuffle;
     
     @FXML
+    private MenuItem listFav;
+    
+    @FXML
     ImageView imageFav;
     
     Image favoritesImage = new Image(getClass().getResource("favorites.jpg").toString());
+    
+    @FXML
+    void addFav(MouseEvent event) {
+    	
+    }
+    
+    @FXML
+    void listFavTable(ActionEvent event) {
+    	
+    }
     
     public void initialize(){
     	imageFav.setImage(favoritesImage);
@@ -69,6 +83,8 @@ public class MainController {
     	//}
     	
     }
+    
+    
     
     
 }
