@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -14,8 +15,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+
 public class MainController {
 
+	String currentURL = "";
+	
     @FXML
     private WebView webView;
     
@@ -26,7 +30,7 @@ public class MainController {
     private Button buttonHttp;
     
     @FXML
-    private MenuItem shuffle;
+    private Menu favMenu;
     
     @FXML
     private MenuItem listFav;
@@ -36,9 +40,31 @@ public class MainController {
     
     Image favoritesImage = new Image(getClass().getResource("favorites.jpg").toString());
     
+    //Create class that calls addFav to preload alraedy added URL's. launch addFav in initialize.
     @FXML
-    void addFav(MouseEvent event) {
-    	
+    void addFav(MouseEvent event) throws Exception {
+    	try {
+    		final String fav = currentURL;
+			Favorite.add(currentURL);
+			MenuItem menuItem = new MenuItem(currentURL); 
+			menuItem.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			        System.out.println(fav);
+			    }
+			});
+			//menuItem.setGraphic(new ImageView(new Image("flower.png"))); example of picture added.
+			
+			//final Menu menu = new Menu("Favorites");
+			favMenu.getItems().add(menuItem);
+		} catch (InvalidFavAdded ex) {
+			ex.printStackTrace();
+		}
+    	//MenuItem item1 = new MenuItem("About");
+    	//item1.setOnAction(new EventHandler<ActionEvent>() {
+    	//    public void handle(ActionEvent e) {
+    	//        System.out.println("About");
+    	//    }
+    	//});
     }
     
     @FXML
@@ -69,6 +95,7 @@ public class MainController {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				textfieldHttp.setText(newValue);
+				currentURL = newValue;
 				
 			}
     		

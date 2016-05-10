@@ -61,17 +61,16 @@ public class CreateFavoritesDB {
 			// Create the table.
 
 			// Primary Key = FavoritesURL
-			stmt.execute(
-					"CREATE TABLE Employee (" + "FavoritesID CHAR(10) NOT NULL PRIMARY KEY, " + "URL CHAR(100) " + ")");
+			stmt.execute("CREATE TABLE Favorites (" + "URL CHAR(100) NOT NULL PRIMARY KEY" + ")");
 
 			// Insert row #1.
-			stmt.execute("INSERT INTO Employee VALUES ( " + "'URL-001', " + "'oracle.com' )");
+			stmt.execute("INSERT INTO Favorites VALUES ( " + "'oracle.com' )");
 
 			// Insert row #2.
-			stmt.execute("INSERT INTO Employee VALUES ( " + "'URL-002', " + "'amazon.com' )");
+			stmt.execute("INSERT INTO Favorites VALUES ( " + "'amazon.com' )");
 
 			// Insert row #3.
-			stmt.execute("INSERT INTO Employee VALUES ( " + "'URL-003', " + "'carrollcc.edu' )");
+			stmt.execute("INSERT INTO Favorites VALUES ( " + "'carrollcc.edu' )");
 
 			System.out.println("Favorites table created.");
 		} catch (SQLException ex) {
