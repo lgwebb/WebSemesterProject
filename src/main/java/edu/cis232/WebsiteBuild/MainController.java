@@ -45,8 +45,6 @@ public class MainController {
 
 	Image favoritesImage = new Image(getClass().getResource("favorites.jpg").toString());
 
-	// Create class that calls addFav to preload alraedy added URL's. launch
-	// addFav in initialize.
 	@FXML
 	void addFav(MouseEvent event) throws Exception {
 
@@ -68,7 +66,7 @@ public class MainController {
 						// REQ#7
 						System.out.println(currentURL + "added!");
 					} catch (SQLException e1) {
-						System.out.println("Action error!");
+						System.err.println("Action error!");
 					}
 
 				}
@@ -112,7 +110,6 @@ public class MainController {
 
 	public void initialize() {
 		imageFav.setImage(favoritesImage);
-		// webView.getEngine().load("http://google.com");
 		final WebEngine we = webView.getEngine();
 		we.load("http://w3schools.com");
 		we.setJavaScriptEnabled(true);

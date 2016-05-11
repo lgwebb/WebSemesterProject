@@ -52,6 +52,7 @@ INSERT INTO EMPLOYEE VALUES('URL-003   ','carrollcc.edu                         
 INSERT INTO FAVORITES VALUES('amazon.com                                                                                          ')
 INSERT INTO FAVORITES VALUES('carrollcc.edu                                                                                       ')
 INSERT INTO FAVORITES VALUES('dell.com                                                                                            ')
+INSERT INTO FAVORITES VALUES('http://www.w3schools.com/                                                                           ')
 INSERT INTO FAVORITES VALUES('newegg.com                                                                                          ')
 INSERT INTO FAVORITES VALUES('oracle.com                                                                                          ')
 INSERT INTO FAVORITES VALUES('pcmag.com                                                                                           ')

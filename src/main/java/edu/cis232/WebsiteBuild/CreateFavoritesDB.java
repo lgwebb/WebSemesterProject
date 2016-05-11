@@ -49,9 +49,6 @@ public class CreateFavoritesDB {
 		}
 	}
 
-	/*
-	 * Creating a Favorites table and adding some characters the database.
-	 */
 
 	public static void buildFavoritesTable(Connection conn) {
 		try {

@@ -19,7 +19,6 @@ public class MainApplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		// TODO Auto-generated method stub
 		// Load the FXML file.
 		Parent parent = FXMLLoader.load(getClass().getResource("WebBrowser.fxml"));
 																		
