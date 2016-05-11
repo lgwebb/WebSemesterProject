@@ -1,4 +1,16 @@
-/*C4*/SET SCHEMA PUBLIC
-INSERT INTO FAVORITES VALUES('http://programmer.com/                                                                              ')
+/*C3*/SET SCHEMA PUBLIC
+DROP TABLE Favorites
+CREATE TABLE Favorites (URL CHAR(100) NOT NULL PRIMARY KEY)
+INSERT INTO FAVORITES VALUES('oracle.com                                                                                          ')
+COMMIT
+INSERT INTO FAVORITES VALUES('amazon.com                                                                                          ')
+COMMIT
+INSERT INTO FAVORITES VALUES('newegg.com                                                                                          ')
+COMMIT
+INSERT INTO FAVORITES VALUES('pcmag.com                                                                                           ')
+COMMIT
+INSERT INTO FAVORITES VALUES('carrollcc.edu                                                                                       ')
+COMMIT
+INSERT INTO FAVORITES VALUES('dell.com                                                                                            ')
 COMMIT
 DISCONNECT

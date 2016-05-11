@@ -1,17 +1,19 @@
 package edu.cis232.WebsiteBuild;
 
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 public class MainApplication extends Application {
 
 	public static void main(String[] args) {
+		new MainApplication().play();
 		launch(args);
+		
 
 	}
 
@@ -24,28 +26,24 @@ public class MainApplication extends Application {
 		// Build the scene graph.
 		Scene scene = new Scene(parent);
 
-		//Menu File
-		//Menu menuFile = new Menu("File");
-		//MenuItem add = new MenuItem("Shuffle");
-		
-		//Menu Edit
-		//Menu menuEdit = new Menu("Edit");
-		
-		//Menu View
-		//Menu menuView = new Menu("View");
-		
-		
-		
-		// Display our window, using the scene graph.
 		// Set the stage.
-		stage.setTitle("Web Browser");
+		stage.setTitle("Web Browser - Lucas Webb"); //REQ#1
 		stage.setScene(scene);
 
 		// Show the stage.
-		stage.show();
+		stage.show(); //REQ#9
+		
 	}
 	
-	
-	//menuFile.getItems().addAll(add);
+	public void play(){
+		Scanner keyboard = new Scanner(System.in);
+		Play p1 = new PlayInput();
+		p1.displayOutput(); //REQ#10
+		System.out.println("Would you like to open the web browser?");
+		String answer = keyboard.nextLine();
+		if (answer.equalsIgnoreCase("y")){
+			System.out.println("Opening...");
+		}
+	}
 
 }

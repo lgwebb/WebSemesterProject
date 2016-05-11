@@ -70,7 +70,13 @@ public class CreateFavoritesDB {
 			stmt.execute("INSERT INTO Favorites VALUES ( " + "'amazon.com' )");
 
 			// Insert row #3.
+			stmt.execute("INSERT INTO Favorites VALUES ( " + "'newegg.com' )");
+			
+			stmt.execute("INSERT INTO Favorites VALUES ( " + "'pcmag.com' )");
+			
 			stmt.execute("INSERT INTO Favorites VALUES ( " + "'carrollcc.edu' )");
+			
+			stmt.execute("INSERT INTO Favorites VALUES ( " + "'dell.com' )");
 
 			System.out.println("Favorites table created.");
 		} catch (SQLException ex) {

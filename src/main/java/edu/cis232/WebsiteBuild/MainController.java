@@ -1,5 +1,11 @@
 package edu.cis232.WebsiteBuild;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Random;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,103 +21,122 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-
 public class MainController {
 
 	String currentURL = "";
-	
-    @FXML
-    private WebView webView;
-    
-    @FXML
-    private TextField textfieldHttp;
 
-    @FXML
-    private Button buttonHttp;
-    
-    @FXML
-    private Menu favMenu;
-    
-    @FXML
-    private MenuItem listFav;
-    
-    @FXML
-    ImageView imageFav;
-    
-    Image favoritesImage = new Image(getClass().getResource("favorites.jpg").toString());
-    
-    //Create class that calls addFav to preload alraedy added URL's. launch addFav in initialize.
-    @FXML
-    void addFav(MouseEvent event) throws Exception {
-    	try {
-    		final String fav = currentURL;
+	@FXML
+	private WebView webView;
+
+	@FXML
+	private TextField textfieldHttp;
+
+	@FXML
+	private Button buttonHttp;
+
+	@FXML
+	private Menu favMenu;
+
+	@FXML
+	private MenuItem listFav;
+
+	@FXML
+	ImageView imageFav;
+
+	Image favoritesImage = new Image(getClass().getResource("favorites.jpg").toString());
+
+	// Create class that calls addFav to preload alraedy added URL's. launch
+	// addFav in initialize.
+	@FXML
+	void addFav(MouseEvent event) throws Exception {
+
+		try {
+			final String fav = currentURL;
 			Favorite.add(currentURL);
-			MenuItem menuItem = new MenuItem(currentURL); 
+			System.out.println("You have added " + fav + " to your favorites bar");
+			MenuItem menuItem = new MenuItem(currentURL);
 			menuItem.setOnAction(new EventHandler<ActionEvent>() {
-			    @Override public void handle(ActionEvent e) {
-			        System.out.println(fav);
-			    }
+				
+				@Override
+				public void handle(ActionEvent e) {
+
+					final String DB_URL = "jdbc:hsqldb:file:FavoritesDB/favorites";
+					try {
+						Connection conn = DriverManager.getConnection(DB_URL);
+						Statement statement = conn.createStatement();
+						statement.executeUpdate("insert into Favorites values ('" + currentURL + "')");
+						// REQ#7
+						System.out.println(currentURL + "added!");
+					} catch (SQLException e1) {
+						System.out.println("Action error!");
+					}
+
+				}
 			});
-			//menuItem.setGraphic(new ImageView(new Image("flower.png"))); example of picture added.
-			
-			//final Menu menu = new Menu("Favorites");
+
 			favMenu.getItems().add(menuItem);
-		} catch (InvalidFavAdded ex) {
-			ex.printStackTrace();
+		} catch (InvalidFavAdded er) { // REQ#11
+			er.printStackTrace();
+			System.out.print(er.getMessage()); // REQ#12
 		}
-    	//MenuItem item1 = new MenuItem("About");
-    	//item1.setOnAction(new EventHandler<ActionEvent>() {
-    	//    public void handle(ActionEvent e) {
-    	//        System.out.println("About");
-    	//    }
-    	//});
-    }
-    
-    @FXML
-    void listFavTable(ActionEvent event) {
-    	
-    }
-    
-    public void initialize(){
-    	imageFav.setImage(favoritesImage);
-    	//webView.getEngine().load("http://google.com");
-    	final WebEngine we = webView.getEngine();
-    	we.load("http://google.com");
-    	we.setJavaScriptEnabled(true);
-    	EventHandler<ActionEvent> enter = new EventHandler<ActionEvent>(){
+	}
+
+	@FXML
+	void showFav(ActionEvent event) {
+		final WebEngine we = webView.getEngine();
+		long time1 = System.currentTimeMillis();
+		StringBuilder builder = new StringBuilder(); // REQ#2
+		for (int i = 0; i < 1000000; i++) {
+			builder.append(' ');
+		}
+		long time2 = System.currentTimeMillis();
+		System.out.println(time2 - time1 + "ms");
+		Random rn = new Random();
+		int favNum = rn.nextInt(6) + 1;
+		if (favNum == 1) {
+			we.load("http://google.com");
+		} else if (favNum == 2) {
+			we.load("http://oracle.com");
+		} else if (favNum == 3) {
+			we.load("http://www.carrollcc.edu/Home/");
+		} else if (favNum == 4) {
+			we.load("http://amazon.com");
+		} else if (favNum == 5) {
+			we.load("http://pcmag.com");
+		} else if (favNum == 6) {
+			we.load("http://newegg.com");
+		} else {
+			we.load("http://dell.com");
+		}
+	}
+
+	public void initialize() {
+		imageFav.setImage(favoritesImage);
+		// webView.getEngine().load("http://google.com");
+		final WebEngine we = webView.getEngine();
+		we.load("http://w3schools.com");
+		we.setJavaScriptEnabled(true);
+		EventHandler<ActionEvent> enter = new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				we.load(textfieldHttp.getText().startsWith("http://") ? textfieldHttp.getText() :
-					"http://" + textfieldHttp.getText());
-				
+				we.load(textfieldHttp.getText().startsWith("http://") ? textfieldHttp.getText()
+						: "http://" + textfieldHttp.getText());
+
 			}
-    		
-    	};
-    	textfieldHttp.setOnAction(enter);
-    	buttonHttp.setOnAction(enter);
-    	we.locationProperty().addListener(new ChangeListener<String>(){
+
+		};
+		textfieldHttp.setOnAction(enter);
+		buttonHttp.setOnAction(enter);
+		we.locationProperty().addListener(new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				textfieldHttp.setText(newValue);
 				currentURL = newValue;
-				
+
 			}
-    		
-    	});
-    	
-    	//EventHandler<ActionEvent> toEnter = new EventHandler<ActionEvent>(){
-    		
-    		//@Override
-    		//public void handle(ActionEvent event){
-    			
-    		//}
-    	//}
-    	
-    }
-    
-    
-    
-    
+
+		});
+	}
 }
